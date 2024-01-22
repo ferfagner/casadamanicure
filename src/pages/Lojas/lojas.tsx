@@ -1,15 +1,18 @@
 // Home.js
 import { useEffect, useState } from 'react';
-import Card from '../../components/cards/cards';
 import Footer from '../../components/footer/footer';
 import Menu from '../../components/menu/menu';
 import Sliders from '../../components/sliders/sliders';
 import { getSlides } from '../../db/slidesServices';
 import { CarouselProps } from '../../dto/slidesDTO';
-import { Carregamento } from './styledHome';
+import { Carregamento, Titulo } from './styledLojas';
+import { CardLojas } from '../../components/cardLojas/cardLojas';
+import { LojasProps } from '../../dto/lojasDTO';
+import { getLojas } from '../../db/lojasServices';
 
-export function Home() {
+export function Lojas() {
   const [items, setItems] = useState([] as CarouselProps['items']);
+  const [lojas, setLojas] = useState([] as LojasProps['dataLoja']);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,6 +20,10 @@ export function Home() {
       try {
         const slides = await getSlides();
         setItems(slides);
+
+        const lojasData = await getLojas();
+        setLojas(lojasData);
+
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -30,14 +37,17 @@ export function Home() {
     <>
       <Menu />
       {loading ? (
-        <Carregamento>
-       
-        </Carregamento>
+        <Carregamento></Carregamento>
       ) : (
-        <Sliders items={items} />
+        <>
+          <Sliders items={items} />
+          <Titulo>
+            Nossas Lojas
+          </Titulo>
+          <CardLojas dataLoja={lojas} />
+          <CardLojas dataLoja={lojas} />
+        </>
       )}
-      <Card />
-      <Card />
       <Footer />
     </>
   );
