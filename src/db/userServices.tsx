@@ -1,39 +1,46 @@
-import { collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
+import { collection, getDoc, doc, DocumentData } from 'firebase/firestore';
 import { Firestore } from './firebase';
-import {UserDTO} from '../dto/userDTO'
+import {Funcionarios} from '../dto/funcDTO'
 
-export const mapUserDocToUserProps = (doc: DocumentData): UserDTO => {
+export const mapUserDocToUserProps = (doc: DocumentData): Funcionarios => {
     const data = doc.data();
   
     // Certifique-se de ajustar esses mapeamentos conforme necessário
     return {
       id: data.id || '',
+      idLoja: data.idLoja || '',
+      nome: data.nome || '',
+      sobrenome: data.sobrenome || '',
+      imgFunc: data.imgFunc || '',
+      userName: data.userName || '',
+      meta: data.meta || '',
+      perfil: data.perfil || '',
+      password: data.password || '',
       cpf: data.cpf || '',
       email: data.email || '',
-      idAsaas: data.idAsaas || '',
-      nome: data.nome || '',
     };
   };
   
-  export const getUserById = async (userId: string): Promise<UserDTO | null> => {
+  export const getUserById = async (userId: string): Promise<Funcionarios | null> => {
     try {
-      const usersCollectionRef = collection(Firestore, 'users');
-      
-      const q = query(usersCollectionRef, where('id', '==', userId));
+      const usersCollectionRef = collection(Firestore, 'colaboradores');
+    
+   
+    const userDocRef = doc(usersCollectionRef, userId);
+
+    const userDocSnapshot = await getDoc(userDocRef);
   
-      const querySnapshot = await getDocs(q);
-  
-      if (!querySnapshot.empty) {
-        const userData = mapUserDocToUserProps(querySnapshot.docs[0]);
-       
-        return userData;
-      } else {
-        console.log('Nenhum usuário encontrado com esse ID.');
-        return null;
-      }
-    } catch (error) {
-      console.error('Erro ao pesquisar usuário por ID:', error);
-      throw error;
+
+    if (userDocSnapshot) {
+      const userData = mapUserDocToUserProps(userDocSnapshot);
+      return userData;
+    } else {
+      console.log('Nenhum documento encontrado na coleção com esse ID.');
+      return null;
     }
-  };
+  } catch (error) {
+    console.error('Erro ao pesquisar documento na coleção por ID externo:', error);
+    throw error;
+  }
+};
   

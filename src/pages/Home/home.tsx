@@ -7,6 +7,7 @@ import Sliders from '../../components/sliders/sliders';
 import { getSlides } from '../../db/slidesServices';
 import { CarouselProps } from '../../dto/slidesDTO';
 import { Carregamento } from './styledHome';
+import {getAllProducts} from '../../api/serviceApi'
 
 export function Home() {
   const [items, setItems] = useState([] as CarouselProps['items']);
@@ -15,6 +16,8 @@ export function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
+        const products = await getAllProducts()
+        console.log(products)
         const slides = await getSlides();
         setItems(slides);
         setLoading(false);

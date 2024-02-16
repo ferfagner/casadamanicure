@@ -3,11 +3,12 @@
 import styled from 'styled-components';
 
 interface OMenuProps{
-    omenuOpen: boolean;
+    menuOpen: boolean;
 }
 
 
 export const NavbarContainer = styled.div`
+ 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +21,7 @@ export const NavbarContainer = styled.div`
 
 
 export const LogoImg = styled.img`
-   width: 15%;
+   width: 150px;
 
 `;
 
@@ -48,7 +49,7 @@ export const OMenu = styled.div<OMenuProps>`
     width: 100%;
     background-color: ${(props) => props.theme.colors.primary};
     padding: 1rem;
-    display: ${(props) => (props.omenuOpen ? 'flex' : 'none')};
+    display: ${(props) => (props.menuOpen ? 'flex' : 'none')};
   }
 `;
 

@@ -23,6 +23,14 @@ export function CardLojas({ dataLoja }: LojasProps) {
     fetchData();
   }, []);
 
+  if(loading){
+    return(
+        <>
+        <h2>Carregando...</h2>
+        </>
+    )
+  }
+
   return (
     <>
       {dataLoja.map((loja) => (
@@ -41,12 +49,16 @@ export function CardLojas({ dataLoja }: LojasProps) {
             <SubTitle>{loja.endereco}</SubTitle>
           </ContainerInfo>
           <ContainerFunc>
-            {funcionarios.map((funcionario, index) => (
-              <CardFunc key={index}>
-                <ImageFunc src={funcionario.imgFunc} />
-                <Name>{funcionario.nome} {funcionario.sobrenome}</Name>
-              </CardFunc>
-            ))}
+          {funcionarios
+              .filter((funcionario) => funcionario.idLoja === loja.id)
+              .map((funcionario, index) => (
+                <CardFunc key={index}>
+                  <ImageFunc src={funcionario.imgFunc} />
+                  <Name>
+                    {funcionario.nome} {funcionario.sobrenome}
+                  </Name>
+                </CardFunc>
+              ))}
           </ContainerFunc>
           <ContainerContato>
             <TelefoneContainer href={`https://wa.me/55${loja.celular}`} target='_blank'>

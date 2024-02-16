@@ -45,7 +45,6 @@ export function Lojas() {
             Nossas Lojas
           </Titulo>
           <CardLojas dataLoja={lojas} />
-          <CardLojas dataLoja={lojas} />
         </>
       )}
       <Footer />

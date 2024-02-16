@@ -12,6 +12,9 @@ export default defineConfig(({ mode }) => {
       'process.env.FIREBASE_MESSAGINGSENDERID': JSON.stringify(env.FIREBASE_MESSAGINGSENDERID),
       'process.env.FIREBASE_APPID': JSON.stringify(env.FIREBASE_APPID),
       'process.env.FIREBASE_MEASUREMENTID': JSON.stringify(env.FIREBASE_MEASUREMENTID),
+      'process.env.API_LOGIN': JSON.stringify(env.API_LOGIN),
+      'process.env.API_PASSWORD': JSON.stringify(env.API_PASSWORD),
+      
     },
     plugins: [react()],
   }

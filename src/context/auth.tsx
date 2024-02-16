@@ -3,7 +3,7 @@ import { createContext, useContext, ReactNode, useState } from 'react';
 import {Autenticator} from '../db/firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {useEffect} from 'react'
-import{UserDTO} from '../dto/userDTO'
+import{Funcionarios} from '../dto/funcDTO'
 import {getUserById} from '../db/userServices'
 
 interface LogInCredential{
@@ -15,7 +15,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   logIn: (credential: LogInCredential) => Promise<void>
   logOut: () => void;
-  user: UserDTO;
+  user: Funcionarios;
 }
 
 
@@ -29,11 +29,12 @@ interface AuthProviderProps {
 
 function AuthProvider({children}: AuthProviderProps){
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [data, setData] = useState<UserDTO>({} as UserDTO)
+  const [data, setData] = useState<Funcionarios>({} as Funcionarios)
 
   async function logIn(credential: LogInCredential) {
     try {
       const { user } = await signInWithEmailAndPassword(Autenticator, credential.email, credential.password);
+      console.log(user.uid)
       const userData = await getUserById(user.uid);
   
       if (userData) {
