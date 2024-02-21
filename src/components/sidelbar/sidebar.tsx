@@ -69,7 +69,7 @@ export default function Sidebar({photo, name, perfil}:SidebarProps){
                 <Icon>
                 <MdAssignment/>
                 </Icon>
-                <MenuTilte>Cadastrar Loja</MenuTilte>
+                <MenuTilte  href='/cadastroLoja'>Cadastrar Loja</MenuTilte>
                 </MenuItem>
                 <MenuItem>
                 <Icon>

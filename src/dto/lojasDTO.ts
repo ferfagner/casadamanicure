@@ -9,6 +9,7 @@ export interface Lojas{
     photourl: string;
     uf: string;
     inalguracao: string;
+    localizacao: string;
   }
 
   export interface LojasProps {
@@ -55,5 +56,21 @@ export interface Lojas{
     quantidadeconta: number;
     despesaperiodo: number;
     lucroliquido: number;
+  }
+
+  
+
+  export interface SetLojaProps{
+    celular: string;
+    cep: string;
+    cidade: string;
+    email: string;
+    endereco: string;
+    id: string;
+    numero: string;
+    photourl: Blob | null;
+    uf: string;
+    inalguracao: string;
+    localizacao: string;
   }
   

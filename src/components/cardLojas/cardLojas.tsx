@@ -1,5 +1,6 @@
-import { Container, TelefoneContainer,ImageLoja, CardFunc, ContainerImage, ContainerInfo, Title, SubTitle, ContainerFunc, ImageFunc, Name, ContainerContato, Telefone } from './cardLojasStyled';
+import { Container, SubTitleLocal,TelefoneContainer,ImageLoja, CardFunc, ContainerImage, ContainerInfo, Title, SubTitle, ContainerFunc, ImageFunc, Name, ContainerContato, Telefone } from './cardLojasStyled';
 import { FaWhatsapp } from 'react-icons/fa';
+import { CiLocationOn } from "react-icons/ci";
 import { useEffect, useState } from 'react';
 import { getFunc } from '../../db/funcServices';
 import { Funcionarios } from '../../dto/funcDTO';
@@ -39,14 +40,13 @@ export function CardLojas({ dataLoja }: LojasProps) {
             <ImageLoja src={loja.photourl} />
           </ContainerImage>
           <ContainerInfo>
+          <SubTitleLocal>Casa da Manicure</SubTitleLocal>
             <Title>Local:</Title>
-            <SubTitle>
+            <SubTitleLocal>
               {loja.cidade} - {loja.uf}
-            </SubTitle>
-            <Title>Tempo de Loja:</Title>
-            <SubTitle>{loja.inalguracao}</SubTitle>
+            </SubTitleLocal>
             <Title>Endereço:</Title>
-            <SubTitle>{loja.endereco}</SubTitle>
+            <SubTitle>{loja.endereco}, Loja {loja.numero}</SubTitle>
           </ContainerInfo>
           <ContainerFunc>
           {funcionarios
@@ -63,7 +63,12 @@ export function CardLojas({ dataLoja }: LojasProps) {
           <ContainerContato>
             <TelefoneContainer href={`https://wa.me/55${loja.celular}`} target='_blank'>
               <Telefone>
-                <FaWhatsapp fontSize={25} /> {loja.celular}
+                <FaWhatsapp fontSize={35} /> {loja.celular}
+              </Telefone>
+            </TelefoneContainer>
+            <TelefoneContainer href={loja.localizacao} target='_blank'>
+              <Telefone>
+                <CiLocationOn fontSize={35} /> Localização
               </Telefone>
             </TelefoneContainer>
           </ContainerContato>

@@ -14,7 +14,7 @@ import { InputText } from '../../components/form/inputText/inputText';
 import Button from '../../components/form/button/button'
 import {getDadosLojaGeral} from '../../api/serviceApi'
 import { SelectInput } from '../../components/form/selectForm/selectForm';
-import {setFunc} from '../../db/funcServices'
+import { setLoja } from '../../db/lojasServices';
 
 
 export function CadastroLoja() {
@@ -37,45 +37,47 @@ export function CadastroLoja() {
   
     fetchData();
   }, []);
-console.log(nomeDasLojaMes)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
-      console.log(file)
-      formik.setFieldValue('imgFunc', file);
+      formik.setFieldValue('photourl', file);
     }
   };
 
   const formik = useFormik({
     initialValues: {
-      nome: '',
-      cpf: '',
+      celular: '',
+      cep: '',
       email: '',
-      password: '',
-      password2: '',
-      meta: '',
-      userName: '',
-      perfil: '',
-      imgFunc: null,
-      idLoja: 'BRASILINHA',
+      cidade: '',
+      endereco: '',
+      id: '',
+      inalguracao: '',
+      localizacao: '',
+      photourl: null,
+      numero: '',
+      uf: ''
     },
     validationSchema: schema,
     onSubmit: async (values) => {
+      console.log('entrou', values)
       try {
         setLoading(true);
-        await setFunc({
-          userName: values.userName,
-          cpf: values.cpf,
+        await setLoja({
+          celular: values.celular,
+          cep: values.cep,
           email: values.email,
-          idLoja: values.idLoja,
-          meta: Number(values.meta),
-          nome: values.nome,
-          password: values.password,
-          perfil: Number(values.perfil),
-          imgFunc: values.imgFunc , // Agora é o arquivo selecionado
+          id: values.id,
+          inalguracao: values.inalguracao,
+          cidade: values.cidade,
+          endereco: values.endereco,
+          numero: values.numero,
+          photourl: values.photourl, 
+          localizacao: values.localizacao,
+          uf: values.uf,
         });
         setLoading(false);
-        navigate('/dashboardAdmin'); // Redirecione após o envio bem-sucedido
+        navigate('/dashboardAdmin');
       } catch (error) {
         console.error('Erro ao cadastrar funcionário:', error);
         setErroLog('Erro ao cadastrar funcionário. Por favor, tente novamente.');
@@ -96,31 +98,103 @@ console.log(nomeDasLojaMes)
 
         <Body>
           <div style={{ backgroundColor: '#52658' }}>
-            <Title>Registre-se Agora</Title>
+            <Title>Cadastre a loja Agora</Title>
             <form onSubmit={formik.handleSubmit}>
+
+            <label>
+              <SelectInput
+                title='Loja:'
+                options={nomeDasLojaMes}
+                value={formik.values.id}
+                onChange={formik.handleChange}
+                name='id'
+                error={formik.errors.id}
+              />
+              </label>
+
               <label>
                 <InputText
-                  title='Nome:'
-                  placeholder='Digite seu nome completo!'
+                  title='Data da Inauguração'
+                  placeholder='Digite a data de Inauguração da loja'
                   type='text'
-                  name='nome'
+                  name='inalguracao'
                   onChange={formik.handleChange}
-                  value={formik.values.nome}
-                  error={formik.errors.nome}
+                  value={formik.values.inalguracao}
+                  error={formik.errors.inalguracao}
+                />
+              </label>
+
+              <label>
+                <InputText
+                  title='Celular:'
+                  placeholder='Digite o numero de telefone da loja@'
+                  type='text'
+                  name='celular'
+                  onChange={formik.handleChange}
+                  value={formik.values.celular}
+                  error={formik.errors.celular}
                 />
               </label>
               
               <label>
                 <InputText
-                  title='CPF/CNPJ:'
-                  placeholder='Digite seu CPF ou CNPJ!'
+                  title='Cep:'
+                  placeholder='Digite o cep da loja!'
                   type='text'
-                  name='cpf'
+                  name='cep'
                   onChange={formik.handleChange}
-                  value={formik.values.cpf}
-                  error={formik.errors.cpf}
+                  value={formik.values.cep}
+                  error={formik.errors.cep}
                 />
               </label>
+              <label>
+                <InputText
+                  title='UF:'
+                  placeholder='Digite o Estado da loja'
+                  type='text'
+                  name='uf'
+                  onChange={formik.handleChange}
+                  value={formik.values.uf}
+                  error={formik.errors.uf}
+                />
+              </label>
+             
+              
+              <label>
+                <InputText
+                  title='Cidade:'
+                  placeholder='Digite a cidade da Loja!'
+                  type='text'
+                  onChange={formik.handleChange}
+                  name='cidade'
+                  value={formik.values.cidade}
+                  error={formik.errors.cidade}
+                />
+              </label>
+              <label>
+                <InputText
+                  title='Endereco:'
+                  placeholder='Digite o Endereco da loja!'
+                  type='text'
+                  onChange={formik.handleChange}
+                  name='endereco'
+                  value={formik.values.endereco}
+                  error={formik.errors.endereco}
+                />
+              </label>
+              
+              <label>
+                <InputText
+                  title='Numero:'
+                  placeholder='Digite o numero da loja'
+                  type='text'
+                  name='numero'
+                  onChange={formik.handleChange}
+                  value={formik.values.numero}
+                  error={formik.errors.numero}
+                />
+              </label>
+
               <label>
                 <InputText
                   title='E-mail:'
@@ -132,84 +206,30 @@ console.log(nomeDasLojaMes)
                   error={formik.errors.email}
                 />
               </label>
-              
               <label>
                 <InputText
-                  title='Senha:'
-                  placeholder='Digite sua Senha!'
-                  type='password'
-                  onChange={formik.handleChange}
-                  name='password'
-                  value={formik.values.password}
-                  error={formik.errors.password}
-                />
-              </label>
-              <label>
-                <InputText
-                  title='Repita sua Senha:'
-                  placeholder='Digite sua Senha Novamente!'
-                  type='password'
-                  onChange={formik.handleChange}
-                  name='password2'
-                  value={formik.values.password2}
-                  error={formik.errors.password2}
-                />
-              </label>
-              
-              <label>
-                <InputText
-                  title='Meta:'
-                  placeholder='Digite a meta do funcionário'
-                  type='number'
-                  name='meta'
-                  onChange={formik.handleChange}
-                  value={formik.values.meta}
-                  error={formik.errors.meta}
-                />
-              </label>
-              <label>
-                <InputText
-                  title='Nome de Usuário:'
-                  placeholder='Digite o nome de usuário'
+                  title='Localizacao:'
+                  placeholder='Digite o link de localizacao da loja'
                   type='text'
-                  name='userName'
+                  name='localizacao'
                   onChange={formik.handleChange}
-                  value={formik.values.userName}
-                  error={formik.errors.userName}
+                  value={formik.values.localizacao}
+                  error={formik.errors.localizacao}
                 />
               </label>
              
-              <label>
-              <SelectInput
-                title='Loja:'
-                options={nomeDasLojaMes}
-                value={formik.values.idLoja}
-                onChange={formik.handleChange}
-                name='idLoja'
-                error={formik.errors.idLoja}
-              />
-              </label>
+             
               <label>
               <InputText
-                  title='Imagem do Funcionário:'
-                  placeholder='Selecione a imagem do funcionário'
+                  title='Imagem da Loja:'
+                  placeholder='Selecione a imagem da Loja'
                   type='file'
-                  name='imgFunc'
+                  name='photourl'
                   onChange={handleFileChange} 
-                  error={formik.errors.imgFunc}
+                  error={formik.errors.photourl}
                 />
               </label>
-              <label>
-                <InputText
-                  title='Perfil do Funcionário:'
-                  placeholder='Perfil de Acesso para o Funcionario'
-                  type='number'
-                  name='perfil'
-                  onChange={formik.handleChange}
-                  value={formik.values.perfil}
-                  error={formik.errors.perfil}
-                />
-              </label>
+            
               <Button type='submit' disabled={loading}>
                 {loading ? 'Carregando...' : 'Registrar'}
               </Button>

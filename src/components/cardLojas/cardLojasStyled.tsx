@@ -48,11 +48,12 @@ export const Title = styled.h3`
 `;
 
 export const SubTitle = styled.p``;
+export const SubTitleLocal = styled.h2``;
 
 export const CardFunc = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
   height: 100%;
   justify-content: center;
   margin-left: 0;
@@ -74,7 +75,7 @@ export const ContainerFunc = styled.div`
 
 export const ImageFunc = styled.img`
     
-  width: 100%;
+  width: 150px;
   max-width: 150px;
   height: 150px;
   border-radius: 100px;
@@ -85,8 +86,10 @@ export const ContainerContato = styled.div`
 
   margin-left: 0;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+
  
 
   @media (min-width: 768px) {
@@ -95,13 +98,18 @@ export const ContainerContato = styled.div`
 `;
 
 export const Name = styled.h4`
-
+    margin-left: 2rem;
     text-align: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+    margin-left: 0rem;
+  }
 
 `;
 
 export const TelefoneContainer = styled.a`
-    
+    margin: 5px;
   text-decoration: none;
 `;
 export const Telefone = styled.h2`

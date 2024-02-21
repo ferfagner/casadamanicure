@@ -9,6 +9,8 @@ import {Sobre} from '../pages/Sobre/sobre'
 import {Dashboard} from '../pages/Dashboard/dashboard'
 import {DashboardAdmin} from '../pages/DashboardAdmin/dashboardAdmin'
 import { CadastroFunc } from '../pages/CadastroFunc/cadastroFunc';
+import { CadastroLoja } from '../pages/CadastroLoja/cadastroLoja';
+
     
 
 const AuthenticatedRoutes = () => (
@@ -21,6 +23,7 @@ const AuthenticatedRoutes = () => (
     <Route path="/dashboard" element={<Dashboard/>} />
     <Route path="/dashboardAdmin" element={<DashboardAdmin/>} />
     <Route path="/cadastroFunc" element={<CadastroFunc/>} />
+    <Route path="/cadastroLoja" element={<CadastroLoja/>} />
     
     
    
