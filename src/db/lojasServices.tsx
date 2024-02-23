@@ -55,10 +55,10 @@ export async function setLoja(values: SetLojaProps) {
       cidade: values.cidade,
       email: values.email,
       endereco: values.endereco,
-      id: values.id, // Usando o ID gerado pela função uuidv4
+      id: values.id, 
       inalguracao: values.inalguracao,
-      photourl: url, // Atribuindo a URL gerada pelo upload
-      localizacao: values.localizacao, // Ou talvez seja necessário corrigir isso conforme a estrutura dos dados
+      photourl: url, 
+      localizacao: values.localizacao, 
       numero: values.numero,
       uf: values.uf,
     });

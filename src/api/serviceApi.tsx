@@ -26,14 +26,16 @@ interface getDadosProps{
 
 
 function getFirstAndLastDay() {
-    const date = new Date();
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0, 10);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0, 10);
-    return [firstDay, lastDay];
-  }
+  const date = new Date();
+  
+  const currentDate = new Date().toISOString().slice(0, 10);
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0, 10);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0, 10);
+  return [firstDay, lastDay, currentDate];
+}
 
-  const [primeiroDia, ultimoDia] = getFirstAndLastDay();
-
+const [primeiroDia, ultimoDia, currentDate] = getFirstAndLastDay();
+  
   export async function getDadosFunc({ userName, nomeLoja, firstDay, LastDay }: getDadosFuncProps) {
 
     try {
@@ -55,7 +57,7 @@ function getFirstAndLastDay() {
       );
   
       const userData = response.data.dados.find((user: DadosFuncionario) => user.loginfuncionario === userName);
-        console.log(userData)
+    
       if (userData) {
         return userData;
       } else {
@@ -108,8 +110,8 @@ export async function getAllProducts() {
     {
       databasecliente: "BancoDadosCasaVieiraPorto.fdb",
       comboempresas: `${nomeLoja ? nomeLoja : 'CENTRAL'}`,
-      datainicial: `${firstDay? lastDay :primeiroDia}`,
-      datafinal: `${firstDay? lastDay: ultimoDia}`,
+      datainicial: `${firstDay? firstDay :currentDate}`,
+      datafinal: `${lastDay? lastDay: currentDate}`,
       typerel: 2
     },
     {
@@ -134,14 +136,15 @@ export async function getAllProducts() {
 }
 
 export async function getDadosGeralMes({nomeLoja, firstDay, lastDay}:getDadosProps) {
+  
   try {
   const response = await axios.post<ApiResponseDadosProps>(
     `${BASE_URL}${EVENTOS}${REPORT}`,
     {
       databasecliente: "BancoDadosCasaVieiraPorto.fdb",
       comboempresas: `${nomeLoja ? nomeLoja : 'CENTRAL'}`,
-      datainicial: `${firstDay? lastDay :primeiroDia}`,
-      datafinal: `${firstDay? lastDay: ultimoDia}`,
+      datainicial: `${firstDay? firstDay :currentDate}`,
+      datafinal: `${lastDay? lastDay: currentDate}`,
       typerel: 3
     },
     {
@@ -166,14 +169,15 @@ export async function getDadosGeralMes({nomeLoja, firstDay, lastDay}:getDadosPro
 }
 
 export async function getDadosLojaGeral({nomeLoja, firstDay, lastDay}:getDadosProps) {
+ 
   try {
   const response = await axios.post<ApiResponseDadosLoja>(
     `${BASE_URL}${EVENTOS}${REPORT}`,
     {
       databasecliente: "BancoDadosCasaVieiraPorto.fdb",
       comboempresas: `${nomeLoja ? nomeLoja : 'CENTRAL'}`,
-      datainicial: `${firstDay? lastDay :primeiroDia}`,
-      datafinal: `${firstDay? lastDay: ultimoDia}`,
+      datainicial: `${firstDay? firstDay :currentDate}`,
+      datafinal: `${lastDay? lastDay: currentDate}`,
       typerel: 5
     },
     {
@@ -198,14 +202,16 @@ export async function getDadosLojaGeral({nomeLoja, firstDay, lastDay}:getDadosPr
 }
 
 export async function getDadosLojaLucro({nomeLoja, firstDay, lastDay}:getDadosProps) {
+  
+  console.log(nomeLoja, firstDay, lastDay)
   try {
   const response = await axios.post<ApiResponseDadosLojaLuco>(
     `${BASE_URL}${EVENTOS}${REPORT}`,
     {
       databasecliente: "BancoDadosCasaVieiraPorto.fdb",
       comboempresas: `${nomeLoja ? nomeLoja : 'CENTRAL'}`,
-      datainicial: `${firstDay? lastDay :primeiroDia}`,
-      datafinal: `${firstDay? lastDay: ultimoDia}`,
+      datainicial: `${firstDay? firstDay :currentDate}`,
+      datafinal: `${lastDay? lastDay: currentDate}`,
       typerel: 8
     },
     {
@@ -217,7 +223,9 @@ export async function getDadosLojaLucro({nomeLoja, firstDay, lastDay}:getDadosPr
   );
  
   if (response) {
+    console.log(response.data.dados)
     return response.data.dados;
+   
   } else {
     console.error(`Dados não encontrado na resposta da API.`);
     return null;

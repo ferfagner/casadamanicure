@@ -10,6 +10,7 @@ import {BarChart}from '../../components/barCharts/barCharts'
 import {BarChartMonth}from '../../components/barCharts/barChartsMonth'
 import{dadosProps,dadosLojaProps,dadosLojaLuco}from '../../dto/lojasDTO'
 import { BarChartMonthLoja } from '../../components/barCharts/barChartsMonthLoja';
+import ResulmAdmin from '../../components/resulmAdmin/resulmAdmin';
 //import{ BarChartValores}from '../../components/barCharts/barChartsValores'
 
 export function DashboardAdmin() {
@@ -23,18 +24,43 @@ export function DashboardAdmin() {
   const [firstDay, setFirstDay] = useState('');
   const [lastDay, setLastDay] = useState('');
 
+  console.log(loading)
+
     const {user} = useAuth()
-  console.log(dadosLojaLucro, loading)
-    function formatDate(dateString:string) {
-      const date = new Date(dateString); // Convertendo a string para objeto Date
-      const year = date.getFullYear(); // Obtendo o ano
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Obtendo o mês (adicionando 1 pois os meses começam em 0)
-      const day = String(date.getDate()).padStart(2, '0'); // Obtendo o dia
-      return `${year}-${month}-${day}`; // Retornando a data formatada
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+    function calcularValores() {
+      let totalVendaBruta = 0;
+      let totalDescontos = 0;
+      let quantidadeVenda = 0;
+      let lucroLiquido = 0;
+  
+      if(dadosLojaLucro){
+      dadosLojaLucro.forEach(venda => {
+        quantidadeVenda += venda.quantidadevenda|| 0;
+          totalVendaBruta += venda.vendabruta || 0;
+          totalDescontos += venda.descontos || 0;
+          lucroLiquido += venda.lucroliquido || 0;
+      });
     }
+      return {
+        quantidadeVenda,
+          totalVendaBruta,
+          totalDescontos,
+          lucroLiquido
+      };
+  }
+  const total = calcularValores()
 
     async function handleSubmit (event: any) {
       event.preventDefault();
+      console.log('entrou aqui ', nomeLoja, firstDay, lastDay)
   
       try {
         const dadosLoja = await getDadosLojaGeral({ nomeLoja, firstDay, lastDay });
@@ -54,7 +80,7 @@ export function DashboardAdmin() {
       }
     };
     
-
+   
 
     useEffect(() => {
 
@@ -130,7 +156,14 @@ export function DashboardAdmin() {
             <Button type="submit">Enviar</Button>
           </form>
           </ContainerForm>
+          <ResulmAdmin
+              vl_desconto={total.totalDescontos}
+              vl_total_nf={total.totalVendaBruta}
+              quantidadevenda={total.quantidadeVenda}
+              lucroLiquido={total.lucroLiquido}
+            />
           <ConteinerMiddle>
+          
             <ContainerCharts>
             <Title>Vendas por Vendedora</Title>
     <BarChart data={dadosGeral} />
