@@ -4,7 +4,7 @@ import { Firestore,Autenticator,Storage  } from './firebase';
 import { Funcionarios, SetFuncProps } from '../dto/funcDTO';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 export async function getFunc(): Promise<Funcionarios[]> {
@@ -77,3 +77,24 @@ export async function setFunc(values: SetFuncProps) {
     throw error;
   }
 }
+
+export const setAvaliacao = async (usernameFunc: string, nota: number, codCupom: string, nome: string, data: string) => {
+  
+const id = uuidv4();
+  try {
+
+    await setDoc(doc(Firestore, 'avaliacao', id), {
+      usernameFunc: usernameFunc,
+      nota: nota,
+      codCupom: codCupom,
+      nomeCliente: nome,
+      dataVenda: data
+    });
+
+    return { success: true };
+ 
+} catch (error) {
+  console.error('Erro ao pesquisar documento na coleção por ID externo:', error);
+  throw error;
+}
+};

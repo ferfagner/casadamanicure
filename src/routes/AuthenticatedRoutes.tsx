@@ -10,6 +10,7 @@ import {Dashboard} from '../pages/Dashboard/dashboard'
 import {DashboardAdmin} from '../pages/DashboardAdmin/dashboardAdmin'
 import { CadastroFunc } from '../pages/CadastroFunc/cadastroFunc';
 import { CadastroLoja } from '../pages/CadastroLoja/cadastroLoja';
+import {Acaliacao} from '../pages/Avaliacao/avaliacao'
 
     
 
@@ -24,6 +25,7 @@ const AuthenticatedRoutes = () => (
     <Route path="/dashboardAdmin" element={<DashboardAdmin/>} />
     <Route path="/cadastroFunc" element={<CadastroFunc/>} />
     <Route path="/cadastroLoja" element={<CadastroLoja/>} />
+    <Route path="/avaliacao" element={<Acaliacao/>} />
     
     
    

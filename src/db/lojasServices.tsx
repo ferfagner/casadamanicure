@@ -3,7 +3,6 @@ import { Firestore, Storage } from './firebase';
 import { SetLojaProps, Lojas } from '../dto/lojasDTO';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
-
 export async function getLojas(): Promise<Lojas[]> {
   try {
     const querySnapshot = await getDocs(collection(Firestore, 'lojas'));

@@ -1,15 +1,16 @@
-import { Container, SubTitleLocal,TelefoneContainer,ImageLoja, CardFunc, ContainerImage, ContainerInfo, Title, SubTitle, ContainerFunc, ImageFunc, Name, ContainerContato, Telefone } from './cardLojasStyled';
+import { Container, Link, SubTitleLocal,TelefoneContainer,ImageLoja, CardFunc, ContainerImage, ContainerInfo, Title, SubTitle, ContainerFunc, ImageFunc, Name, ContainerContato, Telefone } from './cardLojasStyled';
 import { FaWhatsapp } from 'react-icons/fa';
 import { CiLocationOn } from "react-icons/ci";
 import { useEffect, useState } from 'react';
 import { getFunc } from '../../db/funcServices';
 import { Funcionarios } from '../../dto/funcDTO';
 import { LojasProps } from '../../dto/lojasDTO';
+import {useNavigate} from 'react-router-dom'
 
 export function CardLojas({ dataLoja }: LojasProps) {
   const [funcionarios, setFuncionarios] = useState([] as Funcionarios[]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate()
   useEffect(() => {
     async function fetchData() {
       try {
@@ -23,6 +24,13 @@ export function CardLojas({ dataLoja }: LojasProps) {
 
     fetchData();
   }, []);
+
+  function handleNavigate(funcionario: Funcionarios){
+
+    navigate('/avaliacao', {state: funcionario})
+
+
+  }
 
   if(loading){
     return(
@@ -53,10 +61,12 @@ export function CardLojas({ dataLoja }: LojasProps) {
               .filter((funcionario) => funcionario.idLoja === loja.id)
               .map((funcionario, index) => (
                 <CardFunc key={index}>
+                  <Link  onClick={()=> handleNavigate(funcionario)}>
                   <ImageFunc src={funcionario.imgFunc} />
                   <Name>
                     {funcionario.nome} {funcionario.sobrenome}
                   </Name>
+                  </Link>
                 </CardFunc>
               ))}
           </ContainerFunc>

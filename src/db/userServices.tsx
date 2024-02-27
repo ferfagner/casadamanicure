@@ -43,4 +43,6 @@ export const mapUserDocToUserProps = (doc: DocumentData): Funcionarios => {
     throw error;
   }
 };
+
+
   

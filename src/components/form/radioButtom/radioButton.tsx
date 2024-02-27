@@ -1,16 +1,15 @@
-import { Container, Title, Select } from './styleSelect';
-import {dadosLojaProps} from '../../../dto/lojasDTO'
+import { Container, Title, Select } from './styledbutton';
 
 interface SelectInputProps {
   title: string;
-  options: dadosLojaProps[] | null;
+  options: [0,1,2,3,4,5,6,7,8,9,10];
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   error?: string;
   name?: string;
-  value: string;
+  value: number;
 }
 
-export function SelectInput({ title, name, options, onChange, value, error }: SelectInputProps) {
+export function RadioButton({ title, name, options, onChange, value, error }: SelectInputProps) {
   return (
     <Container>
       <Title>{title}</Title>
@@ -19,8 +18,8 @@ export function SelectInput({ title, name, options, onChange, value, error }: Se
       >
         
         {options? options.map((option, index) => (
-          <option key={index} value={option.nome}>
-            {option.nome}
+          <option key={index} value={option}>
+            {option}
           </option>
         )): <></>}
       </Select>

@@ -36,6 +36,11 @@ export const ImageLoja = styled.img`
 
 `;
 
+export const Link = styled.a`
+  cursor: pointer;
+  text-decoration: none;
+`;
+
 export const ContainerInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,9 +103,12 @@ export const ContainerContato = styled.div`
 `;
 
 export const Name = styled.h4`
+    text-decoration: none;
     margin-left: 2rem;
     text-align: center;
     align-items: center;
+    color: ${(props) => props.theme.colors.with};
+    
 
     @media (max-width: 768px) {
     margin-left: 0rem;

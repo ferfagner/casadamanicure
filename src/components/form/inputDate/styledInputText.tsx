@@ -11,7 +11,7 @@ export const Title = styled.p`
  font-weight: 500;
 `;
 
-export const Select = styled.select`
+export const Input = styled.input`
     width: 100%;
   padding: 10px;
   margin-bottom: 16px;
