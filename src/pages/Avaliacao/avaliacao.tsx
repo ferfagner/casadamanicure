@@ -22,7 +22,7 @@ export function Acaliacao() {
   const formik = useFormik({
     initialValues: {
       userName: funcionario.userName,
-      codCupom: '',
+      valor: '',
       nota: 0,
       nome: '',
       data: ''
@@ -35,12 +35,12 @@ export function Acaliacao() {
         await setAvaliacao(
           values.userName,
          Number(values.nota),
-          values.codCupom,
+          values.valor,
           values.nome,
           values.data
         );
         setLoading(false);
-        navigate('/avaliacao'); 
+        navigate('/lojas'); 
       } catch (error) {
         console.error('Erro ao cadastrar funcionário:', error);
         setLoading(false);
@@ -68,7 +68,7 @@ export function Acaliacao() {
                   title='Nome:'
                   placeholder='Digite o seu nome'
                   type='text'
-                  name='codCupom'
+                  name='nome'
                   onChange={formik.handleChange}
                   value={formik.values.nome}
                   error={formik.errors.nome}
@@ -80,7 +80,7 @@ export function Acaliacao() {
                   title='Data da compra:'
                   placeholder='Dia da compra'
                   type='date'
-                  name='codCupom'
+                  name='data'
                   onChange={formik.handleChange}
                   value={formik.values.data}
                   error={formik.errors.data}
@@ -92,10 +92,10 @@ export function Acaliacao() {
                   title='Valor:'
                   placeholder='Digite o Valor da sua compra'
                   type='text'
-                  name='codCupom'
+                  name='valor'
                   onChange={formik.handleChange}
-                  value={formik.values.codCupom}
-                  error={formik.errors.codCupom}
+                  value={formik.values.valor}
+                  error={formik.errors.valor}
                 />
               </label>
               

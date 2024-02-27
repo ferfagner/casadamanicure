@@ -78,7 +78,7 @@ export async function setFunc(values: SetFuncProps) {
   }
 }
 
-export const setAvaliacao = async (usernameFunc: string, nota: number, codCupom: string, nome: string, data: string) => {
+export const setAvaliacao = async (usernameFunc: string, nota: number, valor: string, nome: string, data: string) => {
   
 const id = uuidv4();
   try {
@@ -86,7 +86,7 @@ const id = uuidv4();
     await setDoc(doc(Firestore, 'avaliacao', id), {
       usernameFunc: usernameFunc,
       nota: nota,
-      codCupom: codCupom,
+      valor: valor,
       nomeCliente: nome,
       dataVenda: data
     });
