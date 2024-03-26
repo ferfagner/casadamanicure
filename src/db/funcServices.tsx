@@ -99,18 +99,3 @@ const id = uuidv4();
   throw error;
 }
 };
-
-function alterarSenha( novaSenha: string) {
-  var user = Autenticator.currentUser
-
-  if(user){
-    updatePassword(user, novaSenha)
-    .then(function() {
-      console.log("Senha alterada com sucesso!");
-    })
-    .catch(function(error) {
-      console.error("Erro ao alterar senha:", error);
-    });
-}
-  }
- 
