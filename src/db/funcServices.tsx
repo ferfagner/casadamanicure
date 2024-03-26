@@ -5,6 +5,7 @@ import { Funcionarios, SetFuncProps } from '../dto/funcDTO';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import { v4 as uuidv4 } from 'uuid';
+import { updatePassword} from 'firebase/auth'
 
 
 export async function getFunc(): Promise<Funcionarios[]> {
@@ -98,3 +99,18 @@ const id = uuidv4();
   throw error;
 }
 };
+
+function alterarSenha( novaSenha: string) {
+  var user = Autenticator.currentUser
+
+  if(user){
+    updatePassword(user, novaSenha)
+    .then(function() {
+      console.log("Senha alterada com sucesso!");
+    })
+    .catch(function(error) {
+      console.error("Erro ao alterar senha:", error);
+    });
+}
+  }
+ 

@@ -78,7 +78,7 @@ export async function getAllProducts() {
         `${BASE_URL}${EVENTOS}${TABLE}`,
         {
           databasecliente: "BancoDadosCasaVieiraPorto.fdb",
-          TYPETABLE: 4,
+          typetable: 4,
         },
         {
           auth: {
@@ -88,8 +88,7 @@ export async function getAllProducts() {
         }
       );
   
-      const productData = response.data.dados
-        console.log(productData)
+      const productData = response.data.dados.produtos
       if (productData) {
         return productData;
       } else {

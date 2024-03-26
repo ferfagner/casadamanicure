@@ -10,12 +10,15 @@ import {Sobre} from '../pages/Sobre/sobre'
 
 import {Acaliacao} from '../pages/Avaliacao/avaliacao'
 
+import {Consulta} from '../pages/Consulta/consulta'
+
 const UnauthenticatedRoutes = () => (
   <Routes>
     <Route path="/" element={<Home/>} />
     <Route path="/lojas" element={<Lojas/>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/sobre" element={<Sobre/>} />
+    <Route path="/Consulta" element={<Consulta/>} />
     <Route path="/avaliacao" element={<Acaliacao/>} />
   </Routes>
 );

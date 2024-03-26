@@ -44,5 +44,3 @@ export const mapUserDocToUserProps = (doc: DocumentData): Funcionarios => {
   }
 };
 
-
-  

@@ -23,4 +23,5 @@ const Storage = getStorage(app, 'gs://casadamanicure-6f4ba.appspot.com')
 const Firestore = getFirestore(app)
 
 
+
 export {Autenticator, Firestore, Storage}
