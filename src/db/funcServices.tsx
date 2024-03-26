@@ -5,7 +5,6 @@ import { Funcionarios, SetFuncProps } from '../dto/funcDTO';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import { v4 as uuidv4 } from 'uuid';
-import { updatePassword} from 'firebase/auth'
 
 
 export async function getFunc(): Promise<Funcionarios[]> {
