@@ -21,7 +21,7 @@ export default function Footer() {
             </Column>
             <Column>
                 <Title>Radio</Title>
-                <audio controls autoPlay src="https://server06.srvsh.com.br:7304/stream/">
+                <audio controls src="https://server06.srvsh.com.br:7304/stream/">
                     Seu navegador não suporta a reprodução de áudio.
                 </audio>
             </Column>
