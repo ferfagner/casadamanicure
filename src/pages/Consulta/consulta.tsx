@@ -38,9 +38,9 @@ export function Consulta() {
       produto.GTIN === filtro || String(produto.CDPRODUTO) === filtro
       
       );
-      console.log(result)
+      
       setResultadoFiltro(result)
-
+      setFiltro('')
    
   };
   function handleKeyPress (event: React.KeyboardEvent<HTMLInputElement>) {
