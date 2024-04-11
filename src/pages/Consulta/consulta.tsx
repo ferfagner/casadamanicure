@@ -4,8 +4,12 @@ import Menu from '../../components/menu/menu';
 import { getAllProducts } from '../../api/serviceApi';
 import { Carregamento, Titulo, Container, ContainerInput, DescricaoProduto, InputPesquisa,ImgProduto, ButtonInput, PrecoProduto, ContainerProduto } from './styledConsulta';
 import { ProdutosDTO } from '../../dto/produtosDTO';
+import { Funcionarios } from '../../dto/funcDTO';
+import { getFunc } from '../../db/funcServices';
+import CarrouselFunc from '../../components/CarrouselFunc/CarrouselFunc';
 
 export function Consulta() {
+  const [funcionarios, setFuncionarios] = useState([] as Funcionarios[]);
   const [produtos, setProdutos] = useState<ProdutosDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [filtro, setFiltro] = useState<string>(''); // Estado para armazenar o valor do input
@@ -14,6 +18,8 @@ export function Consulta() {
   useEffect(() => {
     async function fetchData() {
       try {
+        const func = await getFunc();
+        setFuncionarios(func);
         const products: ProdutosDTO[] = await getAllProducts();
         setProdutos(products);
         setLoading(false);
@@ -58,7 +64,6 @@ export function Consulta() {
         <>
           <Titulo>Consultar preço</Titulo>
           <Container>
-          {/* Input para inserir o valor do filtro */}
           <ContainerInput>
           <InputPesquisa
             type="text"
@@ -81,7 +86,11 @@ export function Consulta() {
           </Container>
         </>
       )}
-      
+
+ <Titulo>Avalie nosso Atendimento</Titulo>
+ 
+          <CarrouselFunc data={funcionarios} />
+         
       <Footer />
     </>
   );

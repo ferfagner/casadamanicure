@@ -14,7 +14,9 @@ export async function getFunc(): Promise<Funcionarios[]> {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      dataFunc.push(data as Funcionarios);
+      if (data.perfil === 0) {
+        dataFunc.push(data as Funcionarios);
+      }
     });
 
     return dataFunc;

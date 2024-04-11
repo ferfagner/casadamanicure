@@ -65,3 +65,11 @@ export const ContainerProduto = styled.div`
   margin: 5rem;
   
 `
+
+export const ContairnerFunc = styled.div`
+   display: flex;
+  align-items: center;
+  flex-direction: row;
+  
+  
+`

@@ -51,7 +51,7 @@ export const Title = styled.h3`
 export const SubTitle = styled.p``;
 export const SubTitleLocal = styled.h2``;
 
-export const CardFunc = styled.div`
+export const ContainerFunc = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -73,21 +73,13 @@ export const ImageFunc = styled.img`
   border: 3px solid ${(props) => props.theme.colors.primary};
 `;
 
-export const ContainerFunc = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-right: 2rem;
-  @media (max-width: 768px) {
-    padding-left: 1rem;
-  }
-`;
+
 export const Name = styled.h4`
     text-decoration: none;
     margin-left: 2rem;
     text-align: center;
     align-items: center;
-    color: ${(props) => props.theme.colors.with};
+    color: ${(props) => props.theme.colors.primary};
     
 
     @media (max-width: 768px) {
